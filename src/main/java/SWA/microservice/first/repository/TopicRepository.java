@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.springframework.stereotype.Repository;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -16,6 +17,7 @@ import SWA.microservice.first.Driven.MongoDB.MongoClientConnection;
 import SWA.microservice.first.domain.Forum;
 import SWA.microservice.first.domain.Topic;
 
+@Repository
 public class TopicRepository implements ITopicRepository {
 
 	@Override
@@ -61,16 +63,15 @@ public class TopicRepository implements ITopicRepository {
 		MongoCollection<Document> topicCollection = database.getCollection("topics");
 
 		Document _topic = new Document();
-
 		_topic.append("id", topic.getId());
 		_topic.append("description", topic.getDescription());
 		_topic.append("topicCreator", topic.getCreatorId());
 		_topic.append("forumId", topic.getForum().getId());
 		_topic.append("createAt", topic.getCreateAt());
 
-		var result = topicCollection.insertOne(_topic);
+		topicCollection.insertOne(_topic);
 
-		return null;
+		return _topic;
 	}
 
 	@Override
@@ -78,14 +79,15 @@ public class TopicRepository implements ITopicRepository {
 		var forumCollection = getCollection("forums");
 
 		Document _forum = new Document();
-
 		_forum.append("id", forum.getId());
 		_forum.append("subjectId", forum.getSubjectId());
 		_forum.append("year", forum.getYear());
 		_forum.append("section", forum.getSection());
 		_forum.append("semester", forum.getSemester());
+
 		forumCollection.insertOne(_forum);
-		return null;
+
+		return _forum;
 	}
 
 	@Override
@@ -93,6 +95,7 @@ public class TopicRepository implements ITopicRepository {
 		var forumCollection = getCollection("forums");
 		Document query = new Document("id", id);
 		Document _forum = forumCollection.find(query).first();
+
 		return _forum;
 	}
 
@@ -100,6 +103,7 @@ public class TopicRepository implements ITopicRepository {
 		MongoClient connection = MongoClientConnection.createMongoClient();
 		MongoDatabase database = connection.getDatabase("local");
 		MongoCollection<Document> forumCollection = database.getCollection(collectionName);
+
 		return forumCollection;
 	}
 

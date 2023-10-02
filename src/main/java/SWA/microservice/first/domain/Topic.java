@@ -2,6 +2,7 @@ package SWA.microservice.first.domain;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class Topic {
 	private String id;
@@ -18,6 +19,14 @@ public class Topic {
 		this.creatorId = creatorId;
 		this.comments = comments;
 		this.createAt = createAt;
+	}
+	
+	public Topic(String description, Forum forum, String creatorId) {
+		this.id = UUID.randomUUID().toString();
+		this.description = description;
+		this.forum = forum;
+		this.creatorId = creatorId;
+		this.createAt = new Date();
 	}
 
 	public String getId() {

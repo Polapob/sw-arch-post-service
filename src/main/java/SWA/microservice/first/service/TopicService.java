@@ -4,33 +4,34 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.bson.Document;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import SWA.microservice.first.domain.Comment;
 import SWA.microservice.first.domain.Forum;
 import SWA.microservice.first.domain.Topic;
-import SWA.microservice.first.dto.topic.CreateTopicResponseDTO;
 import SWA.microservice.first.dto.topic.GetTopicResponseDTO;
-import SWA.microservice.first.dto.topic.GetTopicsResponseDTO;
 import SWA.microservice.first.repository.ITopicRepository;
 
+@Service
 public class TopicService implements ITopicService {
 
+	@Autowired
 	private ITopicRepository topicRepository;
 
-	public GetTopicsResponseDTO getTopics() throws Exception {
+	public List<Document> getTopics() throws Exception {
 		try {
 			var topics = topicRepository.getTopics();
-			GetTopicsResponseDTO response = new GetTopicsResponseDTO(topics, true);
 
-			return response;
+			return topics;
 
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
-	public CreateTopicResponseDTO createTopic(Topic topic) throws Exception {
+	public Document createTopic(Topic topic) throws Exception {
 
 		try {
 			var _forum = topic.getForum();
@@ -41,20 +42,26 @@ public class TopicService implements ITopicService {
 				var newForum = topicRepository.createForum(_forum);
 				forum = newForum;
 			}
+			
+			var id = forum.getString("id");
+			var year = forum.getInteger("year");
+			var semester = forum.getInteger("semester");
+			var section = forum.getInteger("section");
+			var subjectId = forum.getString("subjectId");
+			
+			_forum = new Forum(id, subjectId, year, semester, section);
+			topic.setForum(_forum);
 
+			
 			var _topic = topicRepository.createTopic(topic);
 
-			CreateTopicResponseDTO response = new CreateTopicResponseDTO(_topic, true);
-
-			return response;
+			return _topic;
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			throw e;
 		}
 	}
 
-	@GetMapping("/topics/{id}")
 	public GetTopicResponseDTO getTopicById(String id) throws Exception {
 		try {
 
@@ -82,7 +89,6 @@ public class TopicService implements ITopicService {
 			return response;
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			throw e;
 		}
 	}

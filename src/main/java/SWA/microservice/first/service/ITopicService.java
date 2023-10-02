@@ -1,12 +1,14 @@
 package SWA.microservice.first.service;
 
+import java.util.List;
+
+import org.bson.Document;
+
 import SWA.microservice.first.domain.Topic;
-import SWA.microservice.first.dto.topic.CreateTopicResponseDTO;
 import SWA.microservice.first.dto.topic.GetTopicResponseDTO;
-import SWA.microservice.first.dto.topic.GetTopicsResponseDTO;
 
 public interface ITopicService {
-	public GetTopicsResponseDTO getTopics() throws Exception;
-	public CreateTopicResponseDTO createTopic(Topic topic) throws Exception;
+	public List<Document> getTopics() throws Exception;
+	public Document createTopic(Topic topic) throws Exception;
 	public GetTopicResponseDTO getTopicById(String id) throws Exception;
 }

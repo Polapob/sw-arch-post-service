@@ -52,6 +52,10 @@ public class Topic {
 	public Date getCreateAt() {
 		return createAt;
 	}
+	
+	public void setForum(Forum forum) {
+		this.forum = forum;
+	}
 
 	@Override
 	public String toString() {

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mongodb.client.MongoClient;
@@ -13,12 +14,15 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 
+import SWA.microservice.first.Driven.MongoDB.IMongoClientConnection;
 import SWA.microservice.first.Driven.MongoDB.MongoClientConnection;
 import SWA.microservice.first.domain.Forum;
 import SWA.microservice.first.domain.Topic;
 
 @Repository
 public class TopicRepository implements ITopicRepository {
+	@Autowired
+	private IMongoClientConnection mongoClient;
 
 	@Override
 	public List<Document> getTopics() throws Exception {
@@ -58,9 +62,7 @@ public class TopicRepository implements ITopicRepository {
 
 	@Override
 	public Document createTopic(Topic topic) throws Exception {
-		MongoClient connection = MongoClientConnection.createMongoClient();
-		MongoDatabase database = connection.getDatabase("local");
-		MongoCollection<Document> topicCollection = database.getCollection("topics");
+		var topicCollection = getCollection("topics");
 
 		Document _topic = new Document();
 		_topic.append("id", topic.getId());
@@ -100,11 +102,11 @@ public class TopicRepository implements ITopicRepository {
 	}
 
 	private MongoCollection<Document> getCollection(String collectionName) throws Exception {
-		MongoClient connection = MongoClientConnection.createMongoClient();
+		MongoClient connection = mongoClient.createMongoClient();
 		MongoDatabase database = connection.getDatabase("local");
-		MongoCollection<Document> forumCollection = database.getCollection(collectionName);
+		MongoCollection<Document> collection = database.getCollection(collectionName);
 
-		return forumCollection;
+		return collection;
 	}
 
 }

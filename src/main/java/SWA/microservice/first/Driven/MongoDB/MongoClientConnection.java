@@ -8,10 +8,10 @@ import com.mongodb.ServerApiVersion;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 
-public class MongoClientConnection {
+public class MongoClientConnection implements IMongoClientConnection {
 	private static String uri = "mongodb://root:example@localhost:27017";
 
-	public static MongoClient createMongoClient() throws Exception {
+	public MongoClient createMongoClient() throws Exception {
 		ServerApi serverApi = ServerApi.builder().version(ServerApiVersion.V1).build();
 		MongoClientSettings settings = MongoClientSettings.builder().applyConnectionString(new ConnectionString(uri))
 				.serverApi(serverApi).build();

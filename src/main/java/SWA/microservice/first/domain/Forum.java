@@ -1,5 +1,7 @@
 package SWA.microservice.first.domain;
 
+import java.util.UUID;
+
 public class Forum {
 	private String id;
 	private String subjectId;
@@ -13,6 +15,14 @@ public class Forum {
 		this.year = year;
 		this.semester = semester;
 		this.section = section;
+	}
+	
+	public Forum(String subjectId,Integer year,Integer semester,Integer section) {
+		this.id = UUID.randomUUID().toString();
+		this.subjectId = subjectId;
+		this.year = year;
+		this.semester = semester;
+		this.section = section;	
 	}
 
 	public String getId() {

@@ -15,7 +15,6 @@ import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 
 import SWA.microservice.first.Driven.MongoDB.IMongoClientConnection;
-import SWA.microservice.first.Driven.MongoDB.MongoClientConnection;
 import SWA.microservice.first.domain.Forum;
 import SWA.microservice.first.domain.Topic;
 
@@ -23,6 +22,10 @@ import SWA.microservice.first.domain.Topic;
 public class TopicRepository implements ITopicRepository {
 	@Autowired
 	private IMongoClientConnection mongoClient;
+	
+	public TopicRepository(IMongoClientConnection mongoClient) {
+		this.mongoClient = mongoClient;
+	}
 
 	@Override
 	public List<Document> getTopics() throws Exception {

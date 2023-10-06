@@ -11,4 +11,5 @@ public interface ITopicService {
 	public List<Document> getTopics() throws Exception;
 	public Document createTopic(Topic topic) throws Exception;
 	public GetTopicResponseDTO getTopicById(String id) throws Exception;
+	public boolean isTopicExist(String topicId) throws Exception;
 }

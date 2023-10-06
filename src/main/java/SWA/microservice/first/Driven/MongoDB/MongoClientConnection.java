@@ -1,5 +1,7 @@
 package SWA.microservice.first.Driven.MongoDB;
 
+import org.springframework.stereotype.Component;
+
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoException;
@@ -8,6 +10,7 @@ import com.mongodb.ServerApiVersion;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 
+@Component
 public class MongoClientConnection implements IMongoClientConnection {
 	private static String uri = "mongodb://root:example@localhost:27017";
 

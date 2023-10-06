@@ -92,5 +92,10 @@ public class TopicService implements ITopicService {
 			throw e;
 		}
 	}
+	
+	public boolean isTopicExist(String topicId) throws Exception {
+		var isTopicExist = getTopicById(topicId).getId() != null;
+		return isTopicExist;
+	}
 
 }

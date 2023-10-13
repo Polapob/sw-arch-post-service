@@ -2,6 +2,7 @@ version: "3.1"
 
 networks:
   rabbitMQ: 
+    name: topic_rabbitMQ
 
 volumes:
   broker_log:
@@ -17,3 +18,5 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+    networks:
+      - rabbitMQ

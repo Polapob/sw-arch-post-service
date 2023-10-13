@@ -3,6 +3,7 @@ package SWA.microservice.first.service;
 import org.springframework.stereotype.Service;
 import org.springframework.util.SerializationUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.ConnectionFactory;
 
 import SWA.microservice.first.event.BaseEvent;
@@ -11,7 +12,7 @@ import SWA.microservice.first.event.BaseEvent;
 public class RabbitMQService implements IRabbitMQService {
 	public void publishEvent(String exchangeName,BaseEvent event) throws Exception {
 		var factory = new ConnectionFactory();
-		factory.setHost("localhost");
+		factory.setUri("amqp://guest:guest@rabbitMQ:5672");
 		
 		try (var connection = factory.newConnection()){
 			var channel = connection.createChannel();
@@ -19,7 +20,8 @@ public class RabbitMQService implements IRabbitMQService {
 			channel.exchangeDeclare(exchangeName, "topic");
 			
 			var routingKey = "post.comment.create";
-			var message = SerializationUtils.serialize(event);
+			var mapper = new ObjectMapper();
+			var message = mapper.writeValueAsBytes(event);
 			
 			channel.basicPublish(exchangeName, routingKey, null, message);
 			System.out.println(" [x] Sent '" + routingKey + "':'" + message + "'");

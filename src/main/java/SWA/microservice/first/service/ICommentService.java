@@ -9,4 +9,5 @@ public interface ICommentService {
 	CommentDTO createComment(Comment comment) throws Exception;
 	List<CommentDTO> getCommentsByTopicId(String id) throws Exception;
 	CommentDTO getCommentById(String id) throws Exception;
+	boolean publishCreateCommentMessage() throws Exception;
 }

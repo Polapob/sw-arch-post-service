@@ -1,6 +1,7 @@
 package SWA.microservice.first.service;
 
 import java.util.List;
+import java.util.Random;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import SWA.microservice.first.dto.comment.CommentDTO;
 import SWA.microservice.first.exception.CreateCommentFailedException;
 import SWA.microservice.first.exception.GetCommentsByTopicIdFailedException;
 import SWA.microservice.first.repository.ICommentRepository;
+import SWA.microservice.first.event.CreateCommentEvent;
 
 @Service
 public class CommentService implements ICommentService {
@@ -18,6 +20,8 @@ public class CommentService implements ICommentService {
 	private ICommentRepository commentRepository;
 	@Autowired
 	private ITopicService topicService;
+	@Autowired
+	private IRabbitMQService rabbitMQService;
 
 	public CommentDTO createComment(Comment comment) throws Exception {
 		// TODO Auto-generated method stub
@@ -56,5 +60,14 @@ public class CommentService implements ICommentService {
 		dto.topicId = document.getString("topicId");
 		
 		return dto;
+	}
+	
+	public boolean publishCreateCommentMessage() throws Exception {
+		var randomNumber = Integer.toString((new Random()).nextInt());
+		var event = new CreateCommentEvent(randomNumber, "Hello rabbitMQ", randomNumber,"c838f5f6-6c18-47c4-856a-a205706b90b0");
+		
+		rabbitMQService.publishEvent("comment_worker",event);
+	
+		return true;
 	}
 }

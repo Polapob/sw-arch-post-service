@@ -17,6 +17,7 @@ import SWA.microservice.first.dto.comment.CreateCommentRequestDTO;
 import SWA.microservice.first.dto.comment.CreateCommentResponseDTO;
 import SWA.microservice.first.dto.comment.GetCommentByIdResponseDTO;
 import SWA.microservice.first.dto.comment.GetCommentsByTopicIdResponseDTO;
+import SWA.microservice.first.dto.comment.PublishCommentEventResponseDTO;
 import SWA.microservice.first.service.ICommentService;
 
 @RestController
@@ -44,6 +45,13 @@ public class CommentController {
 	public GetCommentsByTopicIdResponseDTO getCommentsByTopicId(@RequestParam(required = true) String topicId) throws Exception {
 		var commentDTOs = commentService.getCommentsByTopicId(topicId);
 		var response = new GetCommentsByTopicIdResponseDTO(commentDTOs,true);
+		return response;
+	}
+	
+	@PostMapping("/publishEvent")
+	public PublishCommentEventResponseDTO publishCommentEvent() throws Exception {
+		var isSuccess = commentService.publishCreateCommentMessage();
+		var response = new PublishCommentEventResponseDTO(isSuccess);
 		return response;
 	}
 }

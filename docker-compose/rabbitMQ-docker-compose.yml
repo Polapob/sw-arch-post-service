@@ -1,0 +1,22 @@
+version: "3.1"
+
+networks:
+  rabbitMQ: 
+    name: topic_rabbitMQ
+
+volumes:
+  broker_log:
+  broker_data:
+
+services:
+  message_broker:
+    image: rabbitmq:3.13-rc-management
+    container_name: rabbitMQ
+    volumes:
+      - broker_data:/var/lib/rabbitmq
+      - broker_log:/var/log/rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - rabbitMQ

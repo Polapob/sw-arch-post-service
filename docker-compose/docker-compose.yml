@@ -1,10 +1,33 @@
 # Use root/example as user/password credentials
-version: '3.1'
+version: '3'
+
+networks:
+  rabbitMQ:
+    name: topic_rabbitMQ
+  mongo:
+  backend:
+    name: topic_backend
 
 services:
+  backend:
+    build:
+      context: ../../first
+      dockerfile: dockerfile/backend.Dockerfile
+    ports:
+      - 8080:8080
+    container_name: topic-backend
+    networks:
+      - mongo
+      - rabbitMQ
+    command: 
+      - sh
+      - -c
+      - | 
+        ping rabbitMQ:5672 -c 3 && java -jar topic-service.jar
 
   mongo:
     image: mongo:7.0.1
+    container_name: mongo
     restart: always
     ports:
       - 27017:27017
@@ -14,11 +37,15 @@ services:
       MONGO_INITDB_DATABASE: post
       MONGO_INIT_DB_USERNAME: poom
       MONGO_INIT_DB_PASSWORD: poom
+
     volumes:
       - /Users/polapob/Downloads/first/data/db:/data/db
+    networks:
+      - mongo
 
   mongo-express:
     image: mongo-express:1.0.0-alpha
+    container_name: mongo-express
     restart: always
     ports:
       - 8081:8081
@@ -26,3 +53,5 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    networks:
+      - mongo

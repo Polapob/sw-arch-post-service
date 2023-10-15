@@ -1,7 +1,6 @@
 syntax = "proto3";
 
-package subject;
-option java_package = "SWA.microservice.first.generate.subject";
+option go_package = "./subject";
 
 message Section {
 	int64 id = 1;

@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-package subject;
-option java_package = "SWA.microservice.first.generate.subject";
+option go_package = "./subject";
+
 import "entity.proto";
 
 service InstructorService {

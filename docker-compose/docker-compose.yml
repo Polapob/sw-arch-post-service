@@ -4,9 +4,11 @@ version: '3'
 networks:
   rabbitMQ:
     name: topic_rabbitMQ
+    external: true
   mongo:
   backend:
     name: topic_backend
+    external: true
 
 services:
   backend:
@@ -19,11 +21,6 @@ services:
     networks:
       - mongo
       - rabbitMQ
-    command: 
-      - sh
-      - -c
-      - | 
-        ping rabbitMQ:5672 -c 3 && java -jar topic-service.jar
 
   mongo:
     image: mongo:7.0.1

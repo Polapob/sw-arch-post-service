@@ -4,3 +4,9 @@ start_compose_all:
 
 stop_compose_all:
 	docker-compose -f "./docker-compose/docker-compose.yml" -f "./docker-compose/rabbitMQ-docker-compose.yml" down
+
+start_compose_dev:
+	docker-compose -f "./docker-compose/docker-compose-db.yml" up -d 
+
+down_compose_down:
+	docker-compose -f "./docker-compose/docker-compose-db.yml" down

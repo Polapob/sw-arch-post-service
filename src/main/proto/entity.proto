@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package subject;
-option java_package = "org.example";
+option java_package = "SWA.microservice.first";
 
 message Section {
 	int64 id = 1;

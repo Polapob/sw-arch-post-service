@@ -12,7 +12,7 @@ import com.mongodb.client.MongoClients;
 
 @Component
 public class MongoClientConnection implements IMongoClientConnection {
-	private static String uri = "mongodb://root:example@mongo:27017";
+	private static String uri = "mongodb://root:example@localhost:27017";
 
 	public MongoClient createMongoClient() throws Exception {
 		ServerApi serverApi = ServerApi.builder().version(ServerApiVersion.V1).build();

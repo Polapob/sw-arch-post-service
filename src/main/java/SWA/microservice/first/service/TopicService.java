@@ -15,7 +15,6 @@ import SWA.microservice.first.dto.topic.GetTopicResponseDTO;
 import SWA.microservice.first.exception.SubjectNotFoundException;
 import SWA.microservice.first.external.service.ISubjectService;
 import SWA.microservice.first.repository.ITopicRepository;
-import SWA.microservice.first.ValidateSubjectIdRequest;
 
 @Service
 public class TopicService implements ITopicService {

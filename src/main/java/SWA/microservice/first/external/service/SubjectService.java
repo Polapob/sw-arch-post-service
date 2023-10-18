@@ -1,14 +1,17 @@
 package SWA.microservice.first.external.service;
 
 import SWA.microservice.first.SubjectServiceGrpc.SubjectServiceBlockingStub;
-import SWA.microservice.first.SubjectServiceGrpc.SubjectServiceImplBase;
+
+import org.springframework.stereotype.Component;
+
 import SWA.microservice.first.Entity.Subject;
 import SWA.microservice.first.GetSubjectByIdRequest;
 import SWA.microservice.first.SubjectServiceGrpc;
 import SWA.microservice.first.ValidateSubjectIdRequest;
 import io.grpc.ManagedChannelBuilder;
 
-public class SubjectService extends SubjectServiceImplBase implements ISubjectService {
+@Component
+public class SubjectService extends SubjectServiceGrpc.SubjectServiceImplBase implements ISubjectService {
 	public boolean validateSubject(Long id) {
 		var stub = createStub();
 		var request = ValidateSubjectIdRequest.newBuilder().setId(id).build();

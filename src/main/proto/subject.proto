@@ -1,7 +1,9 @@
 syntax = "proto3";
 
 package subject;
-option java_package = "SWA.microservice.first.generate.subject";
+option java_multiple_files = true;
+option java_package = "SWA.microservice.first";
+
 import "entity.proto";
 
 service SubjectService {
@@ -99,6 +101,8 @@ message CreateSectionRequest {
 	int64 subject_id = 1;
 	int64 number = 2;
 	string description = 3;
+
+	bool is_admin = 99;
 }
 
 message CreateSectionResponse {
@@ -109,6 +113,8 @@ message UpdateSectionRequest {
 	int64 id = 1;
 	int64 number = 3;
 	string description = 4;
+
+	bool is_admin = 99;
 }
 
 message UpdateSectionResponse {
@@ -117,6 +123,8 @@ message UpdateSectionResponse {
 
 message DeleteSectionRequest {
 	int64 id = 1;
+
+	bool is_admin = 99;
 }
 
 message DeleteSectionResponse {

@@ -2,25 +2,9 @@
 version: '3'
 
 networks:
-  rabbitMQ:
-    name: topic_rabbitMQ
-    external: true
   mongo:
-  backend:
-    name: topic_backend
-    external: true
 
 services:
-  backend:
-    build:
-      context: ../../first
-      dockerfile: dockerfile/backend.Dockerfile
-    ports:
-      - 8080:8080
-    container_name: topic-backend
-    networks:
-      - mongo
-      - rabbitMQ
 
   mongo:
     image: mongo:7.0.1

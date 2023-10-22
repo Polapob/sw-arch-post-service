@@ -62,12 +62,9 @@ public class CommentService implements ICommentService {
 		return dto;
 	}
 	
-	public boolean publishCreateCommentMessage() throws Exception {
-		var randomNumber = Integer.toString((new Random()).nextInt());
-		var event = new CreateCommentEvent(randomNumber, "Hello rabbitMQ", randomNumber,"c838f5f6-6c18-47c4-856a-a205706b90b0");
-		
-		rabbitMQService.publishEvent("comment_worker",event);
-	
+	public boolean publishCreateCommentMessage(CreateCommentEvent event) throws Exception {
+
+		rabbitMQService.publishEvent("comment_worker",event);	
 		return true;
 	}
 }

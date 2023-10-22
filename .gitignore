@@ -36,3 +36,7 @@ db
 ## Docker Volume ##
 
 /data/db
+
+
+## Java secret file
+src/main/resources

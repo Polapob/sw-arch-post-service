@@ -12,6 +12,8 @@ import SWA.microservice.first.domain.Comment;
 import SWA.microservice.first.domain.Forum;
 import SWA.microservice.first.domain.Topic;
 import SWA.microservice.first.dto.topic.GetTopicResponseDTO;
+import SWA.microservice.first.exception.SubjectNotFoundException;
+import SWA.microservice.first.external.service.ISubjectService;
 import SWA.microservice.first.repository.ITopicRepository;
 
 @Service
@@ -19,6 +21,8 @@ public class TopicService implements ITopicService {
 
 	@Autowired
 	private ITopicRepository topicRepository;
+	@Autowired
+	private ISubjectService subjectService;
 
 	public List<Document> getTopics() throws Exception {
 		try {
@@ -35,6 +39,14 @@ public class TopicService implements ITopicService {
 
 		try {
 			var _forum = topic.getForum();
+			
+
+			var isValid = subjectService.validateSubject((long) 1);
+			
+	
+			if (!isValid) {
+				throw new SubjectNotFoundException("Invalid subject create topic");
+			}
 
 			var forum = topicRepository.findForum(_forum);
 

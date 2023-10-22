@@ -17,7 +17,9 @@ import SWA.microservice.first.dto.comment.CreateCommentRequestDTO;
 import SWA.microservice.first.dto.comment.CreateCommentResponseDTO;
 import SWA.microservice.first.dto.comment.GetCommentByIdResponseDTO;
 import SWA.microservice.first.dto.comment.GetCommentsByTopicIdResponseDTO;
+import SWA.microservice.first.dto.comment.PublishCommentEventRequestDTO;
 import SWA.microservice.first.dto.comment.PublishCommentEventResponseDTO;
+import SWA.microservice.first.event.CreateCommentEvent;
 import SWA.microservice.first.service.ICommentService;
 
 @RestController
@@ -49,8 +51,9 @@ public class CommentController {
 	}
 	
 	@PostMapping("/publishEvent")
-	public PublishCommentEventResponseDTO publishCommentEvent() throws Exception {
-		var isSuccess = commentService.publishCreateCommentMessage();
+	public PublishCommentEventResponseDTO publishCommentEvent(@RequestBody PublishCommentEventRequestDTO request) throws Exception {
+		var event = new CreateCommentEvent(request.correlationId,request.description,request.authorId,request.topicId);
+		var isSuccess = commentService.publishCreateCommentMessage(event);
 		var response = new PublishCommentEventResponseDTO(isSuccess);
 		return response;
 	}

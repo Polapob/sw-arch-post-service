@@ -3,6 +3,7 @@ version: "3.1"
 networks:
   rabbitMQ: 
     name: topic_rabbitMQ
+    external: true
 
 volumes:
   broker_log:

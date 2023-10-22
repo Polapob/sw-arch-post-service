@@ -10,3 +10,6 @@ start_compose_dev:
 
 down_compose_down:
 	docker-compose -f "./docker-compose/docker-compose-db.yml" down
+
+remove_volume:
+	docker volume rm docker-compose_broker_log docker-compose_broker_data

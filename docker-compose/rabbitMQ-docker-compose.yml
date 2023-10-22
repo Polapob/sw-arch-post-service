@@ -4,6 +4,7 @@ networks:
   rabbitMQ: 
     name: topic_rabbitMQ
     external: true
+    driver: bridge
 
 volumes:
   broker_log:

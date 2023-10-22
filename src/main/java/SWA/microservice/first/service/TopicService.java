@@ -41,12 +41,12 @@ public class TopicService implements ITopicService {
 			var _forum = topic.getForum();
 			
 
-			var isValid = subjectService.validateSubject((long) 1);
-			
-	
-			if (!isValid) {
-				throw new SubjectNotFoundException("Invalid subject create topic");
-			}
+//			var isValid = subjectService.validateSubject((long) 1);
+//			
+//	
+//			if (!isValid) {
+//				throw new SubjectNotFoundException("Invalid subject create topic");
+//			}s
 
 			var forum = topicRepository.findForum(_forum);
 

@@ -15,10 +15,10 @@ import io.grpc.ManagedChannelBuilder;
 public class SubjectService extends SubjectServiceGrpc.SubjectServiceImplBase implements ISubjectService {
 	
 	@Value("${subject.service.host}")
-	private static String serviceHost;
+	private String serviceHost;
 	
 	@Value("${subject.service.port}")
-	private static Integer port;
+	private Integer port;
 	
 	public boolean validateSubject(Long id) {
 		var stub = createStub();

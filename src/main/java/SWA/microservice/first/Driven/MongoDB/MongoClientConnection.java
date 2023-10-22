@@ -14,7 +14,7 @@ import com.mongodb.client.MongoClients;
 @Component
 public class MongoClientConnection implements IMongoClientConnection {
 	@Value("${db.connection.string}")
-	private static String uri;
+	private String uri;
 
 	public MongoClient createMongoClient() throws Exception {
 		ServerApi serverApi = ServerApi.builder().version(ServerApiVersion.V1).build();

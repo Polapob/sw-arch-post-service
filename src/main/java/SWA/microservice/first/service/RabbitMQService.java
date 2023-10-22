@@ -13,7 +13,7 @@ import SWA.microservice.first.event.BaseEvent;
 public class RabbitMQService implements IRabbitMQService {
 	
 	@Value("${broker.uri.path}")
-	private static String rabbitMqUri;
+	private String rabbitMqUri;
 	
 	public void publishEvent(String exchangeName,BaseEvent event) throws Exception {
 		var factory = new ConnectionFactory();

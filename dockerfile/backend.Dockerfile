@@ -2,6 +2,8 @@
 FROM alpine:3.18.4 AS build
 WORKDIR /app
 
+RUN apk add --no-cache gcompat libstdc++
+
 RUN apk add maven
 
 COPY pom.xml .

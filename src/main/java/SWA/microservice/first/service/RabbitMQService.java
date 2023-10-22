@@ -1,5 +1,6 @@
 package SWA.microservice.first.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.SerializationUtils;
 
@@ -10,9 +11,13 @@ import SWA.microservice.first.event.BaseEvent;
 
 @Service
 public class RabbitMQService implements IRabbitMQService {
+	
+	@Value("${broker.uri.path}")
+	private static String rabbitMqUri;
+	
 	public void publishEvent(String exchangeName,BaseEvent event) throws Exception {
 		var factory = new ConnectionFactory();
-		factory.setUri("amqp://guest:guest@rabbitMQ:5672");
+		factory.setUri(rabbitMqUri);
 		
 		try (var connection = factory.newConnection()){
 			var channel = connection.createChannel();

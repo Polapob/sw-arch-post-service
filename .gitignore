@@ -36,3 +36,5 @@ db
 ## Docker Volume ##
 
 /data/db
+
+src/main/resources

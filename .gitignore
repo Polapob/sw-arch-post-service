@@ -37,4 +37,6 @@ db
 
 /data/db
 
+
+## Java secret file
 src/main/resources

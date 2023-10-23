@@ -27,8 +27,7 @@ public class SubjectService extends SubjectServiceGrpc.SubjectServiceImplBase im
 		return response.getValid();
 	}
 	private SubjectServiceBlockingStub createStub() {
-//		var channel = ManagedChannelBuilder.forAddress(serviceHost,port)
-		var channel = ManagedChannelBuilder.forTarget("subject_service:8080")
+		var channel = ManagedChannelBuilder.forAddress(serviceHost,port)
 				.usePlaintext()
 				.build();
 		var stub = SubjectServiceGrpc.newBlockingStub(channel);

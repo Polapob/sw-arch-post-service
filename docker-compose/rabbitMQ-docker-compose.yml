@@ -4,7 +4,6 @@ networks:
   rabbitMQ: 
     name: topic_rabbitMQ
     external: true
-    driver: bridge
 
 volumes:
   broker_log:
@@ -14,8 +13,6 @@ services:
   message_broker:
     image: rabbitmq:3.13-rc-management
     container_name: rabbitMQ
-    restart: always
-
     volumes:
       - broker_data:/var/lib/rabbitmq
       - broker_log:/var/log/rabbitmq

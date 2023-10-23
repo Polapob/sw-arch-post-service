@@ -39,11 +39,11 @@ public class TopicService implements ITopicService {
 
 		try {
 			var _forum = topic.getForum();
-			
 
-			var isValid = subjectService.validateSubject((long) 1);
-			
-	
+			var _subjectId = Long.parseLong(_forum.getSubjectId());
+
+			var isValid = subjectService.validateSubject(_subjectId);
+
 			if (!isValid) {
 				throw new SubjectNotFoundException("Invalid subject create topic");
 			}
@@ -54,17 +54,16 @@ public class TopicService implements ITopicService {
 				var newForum = topicRepository.createForum(_forum);
 				forum = newForum;
 			}
-			
+
 			var id = forum.getString("id");
 			var year = forum.getInteger("year");
 			var semester = forum.getInteger("semester");
 			var section = forum.getInteger("section");
 			var subjectId = forum.getString("subjectId");
-			
+
 			_forum = new Forum(id, subjectId, year, semester, section);
 			topic.setForum(_forum);
 
-			
 			var _topic = topicRepository.createTopic(topic);
 
 			return _topic;
@@ -104,7 +103,7 @@ public class TopicService implements ITopicService {
 			throw e;
 		}
 	}
-	
+
 	public boolean isTopicExist(String topicId) throws Exception {
 		var isTopicExist = getTopicById(topicId).getId() != null;
 		return isTopicExist;

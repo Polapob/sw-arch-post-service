@@ -1,26 +1,34 @@
-# Use root/example as user/password credentials
 version: '3'
 
 networks:
   rabbitMQ:
     name: topic_rabbitMQ
     external: true
+    driver: bridge
   mongo:
   backend:
     name: topic_backend
     external: true
-
+    driver: bridge
+  subject:
+    name: subject_service
+    driver: bridge
+    external: true
+  
 services:
   backend:
     build:
       context: ../../first
       dockerfile: dockerfile/backend.Dockerfile
+
     ports:
-      - 8080:8080
+      - 4000:4000
     container_name: topic-backend
+    restart: always
     networks:
       - mongo
       - rabbitMQ
+      - subject
 
   mongo:
     image: mongo:7.0.1

@@ -21,8 +21,6 @@ Service Responsibility
 
 ## Starting project
 
-Version 1 : We don't connect with Subject service
-
 ### Step 1: Run subject service
 
 Go to this repository https://github.com/jKulrativid/CU-Overflow-Subject-Service
@@ -33,7 +31,11 @@ Go to this repository https://github.com/jKulrativid/CU-Overflow-Subject-Service
 make start_message_broker
 ```
 
-### Step 3: Run topic service
+### Step 3: Add production credential in /main/resources folder
+
+You need to create application-production.properties. Contact me I will provide this file for you.
+
+### Step 4: Run topic service and build dockerfile
 
 ```
 make start_backend
@@ -41,7 +43,7 @@ make start_backend
 
 If you finish this step, you can run every endpoint except endpoint that support message broker [/publishEvent]
 
-### Step 4: Run topic worker
+### Step 5: Run topic worker
 
 Go to this repository https://github.com/Polapob/sw-arch-topic-worker
 

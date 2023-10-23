@@ -10,7 +10,11 @@ networks:
     name: topic_backend
     external: true
     driver: bridge
-
+  subject:
+    name: subject_service
+    driver: bridge
+    external: true
+  
 services:
   backend:
     build:
@@ -24,6 +28,7 @@ services:
     networks:
       - mongo
       - rabbitMQ
+      - subject
 
   mongo:
     image: mongo:7.0.1

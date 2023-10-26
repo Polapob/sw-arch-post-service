@@ -13,6 +13,7 @@ service SubjectService {
 	rpc CreateSubject(CreateSubjectRequest) returns (CreateSubjectResponse);
 	rpc UpdateSubject(UpdateSubjectRequest) returns (UpdateSubjectResponse);
 	rpc DeleteSubject(DeleteSubjectRequest) returns (DeleteSubjectResponse);
+	rpc ValidateSection(ValidateSectionRequest) returns (ValidateSectionResponse);
 	rpc CreateSection(CreateSectionRequest) returns (CreateSectionResponse);
 	rpc UpdateSection(UpdateSectionRequest) returns (UpdateSectionResponse);
 	rpc DeleteSection(DeleteSectionRequest) returns (DeleteSectionResponse);
@@ -95,6 +96,17 @@ message DeleteSubjectRequest {
 
 message DeleteSubjectResponse {
 	Subject subject = 1;
+}
+
+message ValidateSectionRequest {
+	int64 section_number = 1;
+	string subject_id = 2;
+	int64 year = 3;
+	int64 semester = 4;
+}
+
+message ValidateSectionResponse {
+	bool valid = 1;
 }
 
 message CreateSectionRequest {

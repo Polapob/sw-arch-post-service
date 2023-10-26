@@ -23,7 +23,11 @@ Service Responsibility
 
 ### Step 1: Run subject service
 
-Go to this repository https://github.com/jKulrativid/CU-Overflow-Subject-Service
+Go to this repository https://github.com/jKulrativid/CU-Overflow-Subject-Service and make sure that your update the code to latest version by using
+
+```
+git pull
+```
 
 ### Step 2: Run message broker
 

@@ -13,6 +13,8 @@ import SWA.microservice.first.domain.Forum;
 import SWA.microservice.first.domain.Topic;
 import SWA.microservice.first.dto.topic.GetTopicResponseDTO;
 import SWA.microservice.first.exception.SubjectNotFoundException;
+import SWA.microservice.first.exception.ValidateSectionFailedException;
+import SWA.microservice.first.external.request.ValidateSectionParams;
 import SWA.microservice.first.external.service.ISubjectService;
 import SWA.microservice.first.repository.ITopicRepository;
 
@@ -47,6 +49,21 @@ public class TopicService implements ITopicService {
 			if (!isValid) {
 				throw new SubjectNotFoundException("Invalid subject create topic");
 			}
+			
+			var subjectData = subjectService.getSubjectByIdRequest(_subjectId);
+			
+			var params = new ValidateSectionParams();
+			
+			params.sectionNumber = _forum.getSection();
+			params.year = _forum.getYear();
+			params.subjectId = subjectData.getSubjectId();
+			params.semester = _forum.getSemester();
+
+			var isValidSection = subjectService.validateSection(params);
+			
+			if (!isValidSection) {
+				throw new ValidateSectionFailedException("Invalid section");
+			}
 
 			var forum = topicRepository.findForum(_forum);
 
@@ -73,6 +90,7 @@ public class TopicService implements ITopicService {
 			throw e;
 		}
 	}
+	
 
 	public GetTopicResponseDTO getTopicById(String id) throws Exception {
 		try {

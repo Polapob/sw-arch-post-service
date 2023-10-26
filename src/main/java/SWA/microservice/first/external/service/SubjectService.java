@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 import SWA.microservice.first.Entity.Subject;
 import SWA.microservice.first.GetSubjectByIdRequest;
 import SWA.microservice.first.SubjectServiceGrpc;
+import SWA.microservice.first.ValidateSectionRequest;
 import SWA.microservice.first.ValidateSubjectIdRequest;
+import SWA.microservice.first.external.request.ValidateSectionParams;
 import io.grpc.ManagedChannelBuilder;
 
 @Component
@@ -21,6 +23,18 @@ public class SubjectService extends SubjectServiceGrpc.SubjectServiceImplBase im
 		var stub = createStub();
 		var request = ValidateSubjectIdRequest.newBuilder().setId(id).build();
 		var response = stub.validateSubjectId(request);
+		return response.getValid();
+	}
+	
+	public boolean validateSection(ValidateSectionParams params) {
+		var stub = createStub();
+		var request = ValidateSectionRequest.newBuilder()
+				.setYear(params.year)
+				.setSubjectId(params.subjectId)
+				.setSectionNumber(params.sectionNumber)
+				.setSemester(params.semester)
+				.build();
+		var response = stub.validateSection(request);
 		return response.getValid();
 	}
 

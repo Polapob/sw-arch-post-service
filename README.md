@@ -37,17 +37,23 @@ Run this command before doing anything. Make sure that you are in main branch
 git pull
 ```
 
-### Step 3: Run message broker
+### Step 3: Create docker network
+
+```
+make create_network
+```
+
+### Step 4: Run message broker
 
 ```
 make start_message_broker
 ```
 
-### Step 4: Add production credential in /main/resources folder
+### Step 5: Add production credential in /main/resources folder
 
 You need to create application-production.properties. Contact me I will provide this file for you.
 
-### Step 5: Run topic service and build dockerfile
+### Step 6: Run topic service and build dockerfile
 
 ```
 make start_backend
@@ -55,7 +61,7 @@ make start_backend
 
 If you finish this step, you can run every endpoint except endpoint that support message broker [/publishEvent]
 
-### Step 6: Run topic worker
+### Step 7: Run topic worker
 
 Go to this repository https://github.com/Polapob/sw-arch-topic-worker
 

@@ -2,6 +2,11 @@ start_compose_all:
 	docker-compose -f "./docker-compose/rabbitMQ-docker-compose.yml" up -d
 	docker-compose -f "./docker-compose/docker-compose.yml" up -d --build
 
+create_network:
+	docker network create topic_rabbitMQ
+	docker network create topic_backend
+	docker network create subject_service
+
 start_backend:
 	docker-compose -f "./docker-compose/docker-compose.yml" up -d --build
 

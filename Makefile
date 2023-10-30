@@ -1,3 +1,9 @@
+build_dockerfile:
+	docker build -t topic_backend -f "./dockerfile/backend.Dockerfile" .
+start_compose_special:
+	docker-compose -f "./docker-compose/rabbitMQ-docker-compose.yml" up -d
+	docker-compose -f "./docker-compose/docker-compose-pull.yml" up -d
+
 start_compose_all:
 	docker-compose -f "./docker-compose/rabbitMQ-docker-compose.yml" up -d
 	docker-compose -f "./docker-compose/docker-compose.yml" up -d --build

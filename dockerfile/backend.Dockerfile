@@ -1,5 +1,5 @@
 # First stage: Build the Spring Boot application
-FROM alpine:3.18.4 AS build
+FROM alpine:3.18 AS build
 WORKDIR /app
 
 RUN apk add --no-cache gcompat libstdc++
@@ -13,7 +13,7 @@ COPY src ./src
 RUN mvn clean package
 
 # Second stage: Create a minimal JRE-based image
-FROM alpine:3.18.4
+FROM alpine:3.18
 
 WORKDIR /app
 

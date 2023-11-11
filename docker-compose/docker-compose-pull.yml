@@ -17,7 +17,7 @@ networks:
   
 services:
   backend:
-    image: polapob/topic-service:2.0
+    image: polapob/topic-service:3.0
     ports:
       - 4000:4000
     container_name: topic-backend
